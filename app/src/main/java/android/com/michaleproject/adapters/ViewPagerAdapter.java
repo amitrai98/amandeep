@@ -13,7 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter{
 
-    private String tabTitles[] = new String[] { "Tab1", "Tab2", "Tab3" , "Tab4" };
+    private String tabTitles[] = new String[] { "Home", "Nearby", "Categories" , "Favourites" };
 
     public ViewPagerAdapter(FragmentManager fm){
         super(fm);

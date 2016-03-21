@@ -6,167 +6,173 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <RelativeLayout android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical">
+    <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
+                                                android:layout_height="match_parent">
 
-            <RelativeLayout
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/layout_liniear_parrent"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                          android:layout_height="match_parent"
+                          android:orientation="vertical">
 
-                <TextView android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_centerVertical="true"
-                          android:layout_marginLeft="30dp"
-                          android:layout_alignParentLeft="true"
-                          android:text="@string/two_favourites"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="30dp"
-                    android:src="@drawable/add_stores"/>
-
-            </RelativeLayout>
-
-            <ScrollView
-                android:id="@+id/layout_scroll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:orientation="vertical"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/black">
+                    android:layout_height="80dp">
 
-                    <RelativeLayout
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_centerVertical="true"
+                              android:layout_marginLeft="30dp"
+                              android:layout_alignParentLeft="true"
+                              android:text="@string/two_favourites"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="30dp"
+                        android:src="@drawable/add_stores"/>
+
+                </RelativeLayout>
+
+                <ScrollView
+                    android:id="@+id/layout_scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_marginBottom="1dp"
-                        android:background="@color/gray">
+                        android:layout_height="match_parent"
+                        android:background="@color/black">
+
                         <RelativeLayout
-                            android:id="@+id/layout_img"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="20dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp">
-                            <ImageView
-                                android:id="@+id/img_brand_logo"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/gray">
+                            <RelativeLayout
+                                android:id="@+id/layout_img"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="20dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/dominos"/>
-                        </RelativeLayout>
+                                android:padding="10dp">
+                                <ImageView
+                                    android:id="@+id/img_brand_logo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/dominos"/>
+                            </RelativeLayout>
 
 
-                        <TextView
-                            android:layout_toRightOf="@+id/layout_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="30dp"
-                            android:text="@string/dominos"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="30dp"
-                            android:src="@drawable/heart"/>
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_marginBottom="1dp"
-                        android:background="@color/gray">
-                        <RelativeLayout
-                            android:id="@+id/layout_img_two"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="20dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp">
-                            <ImageView
-                                android:id="@+id/img_brand_logo_two"
+                            <TextView
+                                android:layout_toRightOf="@+id/layout_img"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/parkavenue"/>
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="30dp"
+                                android:text="@string/dominos"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="30dp"
+                                android:src="@drawable/heart"/>
+
+
                         </RelativeLayout>
 
-
-                        <TextView
-                            android:layout_toRightOf="@+id/layout_img_two"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="30dp"
-                            android:text="@string/dominos"/>
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="30dp"
-                            android:src="@drawable/heart"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/gray">
+                            <RelativeLayout
+                                android:id="@+id/layout_img_two"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp">
+                                <ImageView
+                                    android:id="@+id/img_brand_logo_two"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/parkavenue"/>
+                            </RelativeLayout>
 
 
-                    </RelativeLayout>
-                </LinearLayout>
-            </ScrollView>
+                            <TextView
+                                android:layout_toRightOf="@+id/layout_img_two"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="30dp"
+                                android:text="@string/dominos"/>
 
 
-            <RelativeLayout
-                android:id="@+id/layout_moreitems"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
-                <TextView
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:layout_centerInParent="true"
-                          android:text="@string/app_name"/>
-            </RelativeLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="30dp"
+                                android:src="@drawable/heart"/>
 
 
-            <GridView
-                android:id="@+id/view_grid"
-                android:layout_below="@+id/layout_moreitems"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:columnWidth="90dp"
-                android:numColumns="3"
-                android:verticalSpacing="10dp"
-                android:horizontalSpacing="10dp"
-                android:stretchMode="columnWidth"
-                android:gravity="center"
-                />
-        </LinearLayout>
-
-    </RelativeLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+                </ScrollView>
 
 
+                <RelativeLayout
+                    android:id="@+id/layout_moreitems"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/morestores"/>
+                </RelativeLayout>
+
+
+                <!--<GridView-->
+                <!--android:id="@+id/view_grid"-->
+                <!--android:layout_below="@+id/layout_moreitems"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:columnWidth="90dp"-->
+                <!--android:numColumns="3"-->
+                <!--android:verticalSpacing="10dp"-->
+                <!--android:horizontalSpacing="10dp"-->
+                <!--android:stretchMode="columnWidth"-->
+                <!--android:gravity="center"-->
+                <!--/>-->
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

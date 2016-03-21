@@ -10,7 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +33,13 @@ public class Fragment_favourities extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private GridView view_grid = null;
+//    private GridView view_grid = null;
     private FabGridAdapter adapter = null;
     private List<FabGridModal> list_grid_modals = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
+
+    private LinearLayout layout_liniear_parrent = null;
 
     public Fragment_favourities() {
         // Required empty public constructor
@@ -125,7 +127,7 @@ public class Fragment_favourities extends Fragment {
      * initalizing view elements
      */
     private void init(View view){
-        view_grid = (GridView) view.findViewById(R.id.view_grid);
+//        view_grid = (GridView) view.findViewById(R.id.view_grid);
         list_grid_modals.add(new FabGridModal("Armani", ""+R.drawable.armani));
         list_grid_modals.add(new FabGridModal("Gucci", ""+R.drawable.gucci));
         list_grid_modals.add(new FabGridModal("LG", ""+R.drawable.lg));
@@ -135,8 +137,17 @@ public class Fragment_favourities extends Fragment {
         list_grid_modals.add(new FabGridModal("Armani", ""+R.drawable.armani));
         list_grid_modals.add(new FabGridModal("Gucci", ""+R.drawable.gucci));
         list_grid_modals.add(new FabGridModal("LG", ""+R.drawable.lg));
-        adapter = new FabGridAdapter(list_grid_modals, getActivity());
-        view_grid.setAdapter(adapter);
+        layout_liniear_parrent = (LinearLayout) view.findViewById(R.id.layout_liniear_parrent);
+
+                adapter = new FabGridAdapter(list_grid_modals, getActivity());
+
+
+        for (int i = 0; i<10; i++){
+            View v = getActivity().getLayoutInflater().inflate(R.layout.design_linear_item, null);
+            layout_liniear_parrent.addView(v);
+
+        }
+//        view_grid.setAdapter(adapter);
 
 //        view_grid.setAdapter(new ButtonAdapter(getActivity()));
     }

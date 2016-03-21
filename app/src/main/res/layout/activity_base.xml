@@ -1,56 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.DrawerLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/DrawerLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:elevation="7dp">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark" >
 
 
-    <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="App Title"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title" />
+
+        <ImageView
+            android:id="@+id/img_searchlogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:padding="3dp"
+            android:layout_marginRight="3dp"
+            android:src="@drawable/search"/>
+        <ImageView
+            android:id="@+id/img_hamburger"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:padding="3dp"
+            android:layout_marginRight="3dp"
+            android:src="@drawable/hamburger"/>
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <android.support.v4.widget.DrawerLayout
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/DrawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:elevation="7dp">
 
-        <!--<com.astuetz.PagerSlidingTabStrip-->
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--<com.astuetz.PagerSlidingTabStrip-->
             <!--android:id="@+id/tabs_layout"-->
             <!--android:layout_width="match_parent"-->
             <!--android:background="@color/colorAccent"-->
             <!--android:layout_height="48dip" />-->
-        <android.support.design.widget.TabLayout
-            android:id="@+id/sliding_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabGravity="center"
-            android:background="@color/colorAccent"/>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/sliding_tabs"
+                style="@style/MyCustomTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="center"
+                android:background="@color/colorAccent"/>
 
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
-        <!--<RelativeLayout-->
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <!--<RelativeLayout-->
             <!--android:id="@+id/container"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="match_parent"/>-->
 
-    </LinearLayout>
+        </LinearLayout>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/RecyclerView"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
+        <LinearLayout android:layout_width="240dp"
+                      android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/colorAccent">
 
-        android:background="#ffffff"
-        android:scrollbars="vertical">
-
-    </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
 
-</android.support.v4.widget.DrawerLayout>
+    </android.support.v4.widget.DrawerLayout>
+</LinearLayout>
