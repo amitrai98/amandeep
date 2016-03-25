@@ -1,7 +1,7 @@
 package android.com.michaleproject.fragments;
 
 import android.com.michaleproject.adapters.CategoriesAdapter;
-import android.com.michaleproject.modals.CatemoryModal;
+import android.com.michaleproject.modals.CategoryModal;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,7 +40,7 @@ public class Fragment_categories extends Fragment {
     private RecyclerView recyclerView = null;
 
     private CategoriesAdapter adapter = null;
-    private List<CatemoryModal> list_category = new ArrayList<>();
+    private List<CategoryModal> list_category = new ArrayList<>();
 
 
     public Fragment_categories() {
@@ -131,14 +131,14 @@ public class Fragment_categories extends Fragment {
     private void initView(View view){
         recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view);
         list_category.clear();
-        list_category.add(new CatemoryModal("Accessories", R.drawable.accessories));
-        list_category.add(new CatemoryModal("Automotve", R.drawable.automotive));
-        list_category.add(new CatemoryModal("Beauty", R.drawable.beauty));
-        list_category.add(new CatemoryModal("Books", R.drawable.books));
-        list_category.add(new CatemoryModal("Clothing", R.drawable.clothing));
-        list_category.add(new CatemoryModal("Electronics", R.drawable.electronics));
-        list_category.add(new CatemoryModal("Flowers", R.drawable.flowers));
-        list_category.add(new CatemoryModal("Food", R.drawable.food));
+        list_category.add(new CategoryModal("Accessories", R.drawable.accessories));
+        list_category.add(new CategoryModal("Automotve", R.drawable.automotive));
+        list_category.add(new CategoryModal("Beauty", R.drawable.beauty));
+        list_category.add(new CategoryModal("Books", R.drawable.books));
+        list_category.add(new CategoryModal("Clothing", R.drawable.clothing));
+        list_category.add(new CategoryModal("Electronics", R.drawable.electronics));
+        list_category.add(new CategoryModal("Flowers", R.drawable.flowers));
+        list_category.add(new CategoryModal("Food", R.drawable.food));
 
         adapter = new CategoriesAdapter(list_category);
         recyclerView.setAdapter(adapter);

@@ -1,19 +1,90 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".fragments.Fragment_home">
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+             <!--xmlns:tools="http://schemas.android.com/tools"-->
+             <!--android:layout_width="match_parent"-->
+             <!--android:layout_height="match_parent"-->
+             <!--tools:context=".fragments.Fragment_home">-->
 
     <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/hello_blank_fragment"/>
+
+    <!--<ListView-->
+        <!--android:id="@+id/listview_parrent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <!--</ListView>-->
+
+<android.com.michaleproject.fragments.CustomScrollView
+    android:id="@+id/nested_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+    android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/layout_parrent"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+
+            <android.support.design.widget.CoordinatorLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/main_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.AppBarLayout
+                    android:id="@+id/appBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                    <android.support.design.widget.CollapsingToolbarLayout
+                        android:id="@+id/collapsing_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:contentScrim="?attr/colorPrimary"
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="256dp"
+                            android:scaleType="centerCrop"
+                            app:layout_collapseMode="parallax"
+                            android:src="@drawable/large_lego"/>
+                        <android.support.v7.widget.Toolbar
+                            android:id="@+id/mToolbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                            app:layout_collapseMode="pin"/>
+                    </android.support.design.widget.CollapsingToolbarLayout>
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="bottom"
+                        android:background="?attr/colorPrimary"
+                        app:tabMode="scrollable"/>
+                </android.support.design.widget.AppBarLayout>
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/tab_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </android.support.design.widget.CoordinatorLayout>
+
+
+        <ImageView
+            android:layout_below="@+id/main_content"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@drawable/large_mash"
+        />
 
     </RelativeLayout>
 
-</FrameLayout>
+<!--            </L-->inearLayScrollViewedS<!--crollView>
+
+</-->FrameLayout>
+
+    </android.com.michaleproject.fragments.CustomScrollView>

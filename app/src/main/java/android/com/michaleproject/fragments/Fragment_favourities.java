@@ -142,7 +142,7 @@ public class Fragment_favourities extends Fragment {
                 adapter = new FabGridAdapter(list_grid_modals, getActivity());
 
 
-        for (int i = 0; i<10; i++){
+        for (int i = 0; i<5; i++){
             View v = getActivity().getLayoutInflater().inflate(R.layout.design_linear_item, null);
             layout_liniear_parrent.addView(v);
 

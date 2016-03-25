@@ -30,5 +30,16 @@
     <string name="parkavenu">Park Avenue</string>
     <string name="morestores">More Stores you may like</string>
 
+    //navigation items
+    <string name="nav_home">Home</string>
+    <string name="nav_nearby">Nearby</string>
+    <string name="nav_fab">Favorites</string>
+    <string name="nav_categories">Categories</string>
+    <string name="nav_logout">Logout</string>
+    <string name="close">Close</string>
+    <string name="open">Open</string>
+
+
+
 
 </resources>

@@ -1,7 +1,7 @@
 package android.com.michaleproject.adapters;
 
 import android.com.michaleproject.R;
-import android.com.michaleproject.modals.CatemoryModal;
+import android.com.michaleproject.modals.CategoryModal;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class CategoriesAdapter extends  RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>{
 
-    List<CatemoryModal> list_categories = new ArrayList<>();
+    List<CategoryModal> list_categories = new ArrayList<>();
 
-    public CategoriesAdapter(List<CatemoryModal> list_categories){
+    public CategoriesAdapter(List<CategoryModal> list_categories){
         this.list_categories = list_categories;
     }
 
@@ -38,7 +38,7 @@ public class CategoriesAdapter extends  RecyclerView.Adapter<CategoriesAdapter.C
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
 
-        CatemoryModal modal = list_categories.get(position);
+        CategoryModal modal = list_categories.get(position);
         if(modal.getTxt_name() != null)
             holder.txt_optionitem.setText(modal.getTxt_name());
 

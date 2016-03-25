@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="@string/app_name"/>
+                android:text="Armani"/>
 
         </RelativeLayout>
 
@@ -44,7 +44,7 @@
                 android:id="@+id/img_item_logo_two"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/armani"/>
+                android:src="@drawable/gucci"/>
 
             <TextView
                 android:id="@+id/txt_item_name_two"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="@string/app_name"/>
+                android:text="Gucci"/>
 
         </RelativeLayout>
 
@@ -68,7 +68,7 @@
                 android:id="@+id/img_item_logo_three"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/armani"/>
+                android:src="@drawable/lg"/>
 
             <TextView
                 android:id="@+id/txt_item_name_three"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
-                android:text="@string/app_name"/>
+                android:text="LG"/>
 
         </RelativeLayout>
 
