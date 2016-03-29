@@ -1,14 +1,14 @@
 package android.com.michaleproject.fragments;
 
 import android.content.Context;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ScrollView;
 
 /**
  * Created by amitrai on 25/3/16.
  */
-public class CustomScrollView extends ScrollView {
+public class CustomScrollView extends NestedScrollView {
 
 
         private boolean enableScrolling = true;
