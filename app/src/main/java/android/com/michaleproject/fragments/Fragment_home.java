@@ -2,6 +2,8 @@ package android.com.michaleproject.fragments;
 
 import android.com.michaleproject.R;
 import android.com.michaleproject.modals.HomeItemModal;
+import android.com.michaleproject.rnd.ObservableScrollViewCallbacks;
+import android.com.michaleproject.rnd.ScrollState;
 import android.content.Context;
 import android.graphics.Point;
 import android.net.Uri;
@@ -18,9 +20,13 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +39,7 @@ import java.util.List;
  * Use the {@link Fragment_home#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_home extends Fragment {
+public class Fragment_home extends Fragment implements ObservableScrollViewCallbacks {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -51,14 +57,24 @@ public class Fragment_home extends Fragment {
 
     private int collapse_item  = 0;
 
+    ObservableScrollViewCallbacks scrollViewCallbacks = null;
+
 //    private ListView listView_parrent = null;
 //    private HomeAdapter adapter = null;
 
-    private int current_postion = -1;
+    private int current_postion = 0;
 
     private DisplayMetrics metrics_;
 
     private int scroll_height = 500;
+
+    private int inital_height = 100;
+
+    private int final_height = 600;
+
+    private float current_height = 0;
+
+    private float prev_y = 0;
 
 //    private NestedScrollView nested_scroll = null;
 //    private LinearLayout layout_parent = null;
@@ -139,6 +155,22 @@ public class Fragment_home extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+        Log.e(TAG, ""+scrollY);
+
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+        Log.e(TAG, "down motion");
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        Log.e(TAG, ""+scrollState);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -159,6 +191,8 @@ public class Fragment_home extends Fragment {
      * @param view
      */
     private void init(final View view){
+
+
 //        listView_parrent  = (ListView) view.findViewById(R.id.listview_parrent);
 //        nested_scroll = (NestedScrollView) view.findViewById(R.id.layout_parrent);
 //        layout_parent = (LinearLayout) view.findViewById(R.id.layout_parrent);
@@ -166,7 +200,54 @@ public class Fragment_home extends Fragment {
 
 
         nested_scroll = (NestedScrollView) view.findViewById(R.id.nested_scroll);
+//        nested_scroll.setScrollViewCallbacks(this);
         layout_parrent = (LinearLayout) view.findViewById(R.id.layout_parrent);
+        ViewHelper holper = null;
+
+//        nested_scroll.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                float val = event.getY();
+//                Log.e(TAG, ""+val);
+//
+//                if(event.getAction()== MotionEvent.ACTION_DOWN){
+//                    current_height = 0;
+//                }else if (event.getAction()== MotionEvent.ACTION_UP){
+//                    current_height = 0;
+//                }
+//                if(prev_y > event.getY()){
+//                    Log.e(TAG, "moved up");
+//                    if(current_height < final_height){
+//                        current_height += 10;
+//                        try {
+//                            ViewHelper.setTranslationY(list_appbar.get(current_postion).appBarLayout, ScrollUtils.getFloat(current_height, final_height, 0));
+//                        }catch (Exception e){
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                    else {
+//                        current_height =0;
+//
+//                    }
+//                }else{
+//                    Log.e(TAG, "moved down");
+//                    if(current_height-10>inital_height){
+//                        current_height -= current_height;
+//
+//                    }else {
+//                        current_height = 0;
+//                    }
+//
+//                }
+//
+//                prev_y = event.getY();
+//
+//
+//                return false;
+//            }
+//        });
 //        collapsing_toolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
 //        appBar = (AppBarLayout) view.findViewById(R.id.appBar);
 //        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.main_content);
@@ -304,14 +385,23 @@ public class Fragment_home extends Fragment {
                 holder.layout_parrent = (RelativeLayout) menuLayout.findViewById(R.id.layout_parrent);
                 holder.img_view= (ImageView) menuLayout.findViewById(R.id.img_view);
                 holder.coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.main_content);
+                try{
+                    int imgres = Integer.parseInt(list_homeitem.get(i).getImg_largeurl());
+                    holder.img_view.setImageResource(imgres);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
+
+
+                list_appbar.add(holder);
 
                 if(Build.VERSION.SDK_INT >= 21 && i != 0 && holder.appBarLayout != null){
                     holder.appBarLayout.setExpanded(false);
                     holder.appBarLayout.setTag(holder);
                     holder.collapsing_toolbar.getLayoutParams().height = 0;
                     holder.layout_collapseitem.setVisibility(View.VISIBLE);
-                    list_appbar.add(holder);
+
                 }
 
                 if(Build.VERSION.SDK_INT >= 21 && i == 0 && holder.appBarLayout != null){
@@ -319,12 +409,13 @@ public class Fragment_home extends Fragment {
                     holder.img_view.setVisibility(View.VISIBLE);
 //                    scroll_height = holder.img_view.getLayoutParams().height;
                     Log.e(TAG, ""+scroll_height);
-                    list_appbar.add(holder);
                 }
 
             }
 
         }
+
+
 
 
         nested_scroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -343,15 +434,64 @@ public class Fragment_home extends Fragment {
                 int absoluteBottom = coords[1] + layout_check.getHeight();
 
 
+                if(scrollY< prev_y){
+                    prev_y = scrollY;
+                    try {
+                        if(absoluteTop > check_height){
+                            {
+                                Log.e(TAG, "moved down");
+                                AppBarLayout appBar = list_appbar.get(collapse_item).appBarLayout;
+                                CoordinatorLayout coordinator_layout = list_appbar.get(collapse_item).coordinatorLayout;
 
-                if(absoluteTop < 600 || (list_appbar.size() - current_postion) <= 4){
-                    CoordinatorLayout.LayoutParams params_ = (CoordinatorLayout.LayoutParams) list_appbar.get(collapse_item).appBarLayout.getLayoutParams();
-                    behavior = (AppBarLayout.Behavior) params_.getBehavior();
-                    if(behavior!=null) {
-                        behavior.setTopAndBottomOffset(0);
-                        Log.e(TAG, "y is" +scrollY);
-//                        behavior.onNestedScroll(list_appbar.get(collapse_item).coordinatorLayout,list_appbar.get(collapse_item).appBarLayout, null,0, 0, 0,1000);
+//                                    appBar.setExpanded(false);
+
+                                CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
+                                behavior = (AppBarLayout.Behavior) params.getBehavior();
+                                if(behavior!=null) {
+                                    behavior.setTopAndBottomOffset(0);
+                                    Log.e(TAG, "y is" +scrollY);
+                                    list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.VISIBLE);
+//                                        behavior.onNestedScroll(coordinator_layout,appBar, null,0, 200, 0,0);
+//                                        previtem = scrollY;
+                                    appBar.setExpanded(false);
+
+                                    list_appbar.get(collapse_item).collapsing_toolbar.getLayoutParams().height = 0;
+//                                    list_appbar.get(collapse_item).laffsetCyout_collapseitem.setVisibility(View.VISIBLE);
+//                                        list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.VISIBLE);
+//                                        list_appbar.get(collapse_item).collapsing_toolbar.setVisibility(View.GONE);
+//                                        params.height = list_appbar.get(collapse_item).layout_collapseitem.getHeight();
+                                }
+
+
+//                                    list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
+//                                    list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
+
+
+                                if(collapse_item >0 )
+                                    collapse_item -- ;
+
+                                previtem = scrollY;
+                            }
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
+
+
+                    Log.e(TAG, "scrol down");
+
+                }else {
+                    prev_y =scrollY;
+                    Log.e(TAG, "scrol up");
+
+                    if(absoluteTop < check_height || (list_appbar.size() - current_postion) <= 4){
+                        CoordinatorLayout.LayoutParams params_ = (CoordinatorLayout.LayoutParams) list_appbar.get(collapse_item).appBarLayout.getLayoutParams();
+                        behavior = (AppBarLayout.Behavior) params_.getBehavior();
+                        if(behavior!=null) {
+                            behavior.setTopAndBottomOffset(0);
+                            Log.e(TAG, "y is" +scrollY);
+//                        behavior.onNestedScroll(list_appbar.get(collapse_item).coordinatorLayout,list_appbar.get(collapse_item).appBarLayout, null,0, 0, 0,1000);
+                        }
 
 //                    if(scrollY != previtem){
 //                        int diff = scrollY - previtem;
@@ -397,51 +537,10 @@ public class Fragment_home extends Fragment {
                                 e.printStackTrace();
                             }
 
-                        }else if(scrollY < previtem){
-                            try {
-                                if(scrollY < previtem){
-                                    {
-                                        Log.e(TAG, "moved down");
-                                        AppBarLayout appBar = list_appbar.get(collapse_item).appBarLayout;
-
-//                                    appBar.setExpanded(false);
-
-                                        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
-                                        behavior = (AppBarLayout.Behavior) params.getBehavior();
-                                        if(behavior!=null) {
-//                                        behavior.setTopAndBottomOffset(0);
-//                                        Log.e(TAG, "y is" +scrollY);
-//                                        behavior.onNestedScroll(coordinatorLayout,appBar, null,0, 0, 0,scrollY);
-//                                        previtem = scrollY;
-                                            appBar.setExpanded(false);
-                                            list_appbar.get(collapse_item).collapsing_toolbar.getLayoutParams().height = 0;
-                                            list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.VISIBLE);
-//                                        list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.VISIBLE);
-//                                        list_appbar.get(collapse_item).collapsing_toolbar.setVisibility(View.GONE);
-//                                        params.height = list_appbar.get(collapse_item).layout_collapseitem.getHeight();
-                                        }
-
-
-//                                    list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
-//                                    list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
-
-                                        if(collapse_item >0 )
-                                            collapse_item -- ;
-
-                                        previtem = scrollY;
-                                    }
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-
                         }
 
-
-
-//                    }
+                    }
                 }
-
 
             }
         });
@@ -537,5 +636,61 @@ public class Fragment_home extends Fragment {
         RelativeLayout layout_collapseitem ;
         RelativeLayout layout_parrent ;
         ImageView img_view;
+    }
+
+
+
+    //    public static void expand(final View v) {
+//        v.measure(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+//        final int targetHeight = v.getMeasuredHeight();
+//
+//        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+//        v.getLayoutParams().height = 1;
+//        v.setVisibility(View.VISIBLE);
+//        Animation a = new Animation()
+//        {
+//            @Override
+//            protected void applyTransformation(float interpolatedTime, Transformation t) {
+//                v.getLayoutParams().height = interpolatedTime == 1
+//                        ? LayoutParams.WRAP_CONTENT
+//                        : (int)(targetHeight * interpolatedTime);
+//                v.requestLayout();
+//            }
+//
+//            @Override
+//            public boolean willChangeBounds() {
+//                return true;
+//            }
+//        };
+//
+//        // 1dp/ms
+//        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+//        v.startAnimation(a);
+//    }
+//
+    public static void collapse(final View v) {
+        final int initialHeight = v.getMeasuredHeight();
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if(interpolatedTime == 1){
+                    v.setVisibility(View.GONE);
+                }else{
+                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
     }
 }

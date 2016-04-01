@@ -11,4 +11,10 @@
     <color name="black">#000000</color>
     <color name="profile_ring">#b84b36</color>
     <color name="item_name_color">#101e4f</color>
+
+    <color name="primary">#009688</color>
+    <color name="primaryDark">#00796b</color>
+    <color name="accent">#eeff41</color>
+    <color name="accentLight">#F4FF81</color>
+    <color name="transparent">#00000000</color>
 </resources>
