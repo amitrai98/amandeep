@@ -1,14 +1,17 @@
 package android.com.michaleproject.fragments;
 
 import android.com.michaleproject.R;
+import android.com.michaleproject.activities.BaseActivity;
 import android.com.michaleproject.modals.HomeItemModal;
 import android.com.michaleproject.rnd.ObservableScrollViewCallbacks;
 import android.com.michaleproject.rnd.ScrollState;
+import android.com.michaleproject.rnd.ScrollUtils;
 import android.content.Context;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -18,6 +21,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -39,7 +43,7 @@ import java.util.List;
  * Use the {@link Fragment_home#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_home extends Fragment implements ObservableScrollViewCallbacks {
+public class Fragment_home extends Fragment implements ObservableScrollViewCallbacks{//, View.OnTouchListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,6 +60,8 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
     private List<Holder> list_appbar = new ArrayList<>();
 
     private int collapse_item  = 0;
+
+    private int prev_collapse_item = -1;
 
     ObservableScrollViewCallbacks scrollViewCallbacks = null;
 
@@ -88,8 +94,17 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
     //    private AppBarLayout appBar = null;
     private AppBarLayout.OnOffsetChangedListener listener;
     public AppBarLayout.Behavior behavior;
+    private CoordinatorLayout layout_parent_coordinator = null;
 
     private LinearLayout layout_parrent = null;
+
+    private boolean collapse = true;
+
+    private int height_items = 0;
+
+    private int current_item_height = 0;
+    private int _xDelta = -1;
+    private int _yDelta = -1;
 
     public Fragment_home() {
         // Required empty public constructor
@@ -171,6 +186,127 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
         Log.e(TAG, ""+scrollState);
     }
 
+
+
+//    @Override
+//    public boolean onTouch(View v, MotionEvent ev) {
+//
+//        final int action = ev.getAction();
+//        float ychange = ev.getY();
+//        float yev = ev.getRawY();
+//
+//        switch (action)
+//        {
+//            case MotionEvent.ACTION_DOWN:
+//                Log.i("VerticalScrollview", "onInterceptTouchEvent: DOWN super false"+ychange );
+//                prev_y = yev;
+//                nested_scroll.setActivated(true);
+//                break;
+//
+//            case MotionEvent.ACTION_MOVE:
+//                Log.i("VerticalScrollview", "onInterceptTouchEvent: DOWN super false"+ychange );
+//
+////                nested_scroll.smoothScrollTo(0, (int) ychange);
+//
+//                if(prev_y - yev >200 ){
+//                    prev_y = yev;
+//                    Log.e(TAG, "moved up");
+//                    AppBarLayout appBar = list_appbar.get(collapse_item).appBarLayout;
+//                    CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
+//                    behavior = (AppBarLayout.Behavior) params.getBehavior();
+//                    if(behavior!=null) {
+//
+////                                    list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
+//                        list_appbar.get(collapse_item).collapsing_toolbar.getLayoutParams().height = 600;
+//                        list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
+//
+////                                        if((list_appbar.size() - current_postion) <= 4){
+////                                            for(int i = current_postion; i< list_appbar.size(); i++){
+////                                                current_postion = i;
+////                                                list_appbar.get(collapse_item).collapsing_toolbar.getLayoutParams().height = 1000;
+////                                                list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
+////                                            }
+////                      '                  }
+//
+//                        appBar.setExpanded(true);
+//                        if(collapse_item >0){
+//                            list_appbar.get(collapse_item -1).appBarLayout.getLayoutParams().height = 0;;
+////                            int ht = list_appbar.get(collapse_item-1).collapsing_toolbar.getLayoutParams().height;
+////                            int totalht = (int)(ht *collapse_item) + BaseActivity.tabLayout.getLayoutParams().height;
+////                            int top_y = list_appbar.get(collapse_item - 1).appBarLayout.getBottom();
+////                            nested_scroll.smoothScrollBy(0, totalht);
+//
+//                        }
+//
+////                        if(prev_collapse_item != collapse_item){
+//////                                            nested_scroll.scrollBy(0, top_y);
+////                            focusOnView(nested_scroll, list_appbar.get(collapse_item).collapsing_toolbar);
+////                            prev_collapse_item = collapse_item;
+////                        }
+//
+//
+//
+////                                    list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
+////                                    params.height = list_appbar.get(collapse_item).img_view.getLayoutParams().height;
+//                    }
+//
+//
+////                                list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.VISIBLE);
+//
+//
+//                    if(collapse_item < list_appbar.size()-1)
+//                        collapse_item ++;
+//                }else if(prev_y - yev<-200){
+//                    prev_y = yev;
+//                    AppBarLayout appBar = list_appbar.get(collapse_item).appBarLayout;
+//                    CoordinatorLayout coordinator_layout = list_appbar.get(collapse_item).coordinatorLayout;
+//
+////                                    appBar.setExpanded(false);
+//
+//                    CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
+//                    behavior = (AppBarLayout.Behavior) params.getBehavior();
+//                    if(behavior!=null) {
+//                        behavior.setTopAndBottomOffset(0);
+//                        list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.VISIBLE);
+////                                        behavior.onNestedScroll(coordinator_layout,appBar, null,0, 200, 0,0);
+////                                        previtem = scrollY;
+//                        if(collapse_item > 0)
+//                        appBar.setExpanded(false);
+//
+//                        list_appbar.get(collapse_item).collapsing_toolbar.getLayoutParams().height = 0;
+////                                    list_appbar.get(collapse_item).laffsetCyout_collapseitem.setVisibility(View.VISIBLE);
+////                                        list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.VISIBLE);
+////                                        list_appbar.get(collapse_item).collapsing_toolbar.setVisibility(View.GONE);
+////                                        params.height = list_appbar.get(collapse_item).layout_collapseitem.getHeight();
+//                    }
+//
+//
+////                                    list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
+////                                    list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
+//
+//
+//                    if(collapse_item >0 )
+//                        collapse_item -- ;
+//                    Log.i("VerticalScrollview"+yev, "onInterceptTouchEvent: DOWN super false"+ychange );
+//                }
+//                return false; // redirect MotionEvents to ourself
+//
+//            case MotionEvent.ACTION_CANCEL:
+//                Log.i("VerticalScrollview"+yev, "onInterceptTouchEvent: CANCEL super false"+ychange );
+//                break;
+//
+//            case MotionEvent.ACTION_UP:
+//                prev_y = 0;
+//                nested_scroll.setActivated(false);
+//                Log.i("VerticalScrollview"+yev, "onInterceptTouchEvent: UP super false"+ychange );
+//                return false;
+//
+//        }
+//
+//        return true;
+//
+//    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -199,74 +335,78 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
 
 
 
+
+
         nested_scroll = (NestedScrollView) view.findViewById(R.id.nested_scroll);
+        layout_parent_coordinator = (CoordinatorLayout) view.findViewById(R.id.layout_parent_coordinator);
+//        nested_scroll.setOnTouchListener(this);
 //        nested_scroll.setScrollViewCallbacks(this);
         layout_parrent = (LinearLayout) view.findViewById(R.id.layout_parrent);
         ViewHelper holper = null;
+
+        nested_scroll.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                float val = event.getY();
+                Log.e(TAG, ""+val);
+
+                if(event.getAction()== MotionEvent.ACTION_DOWN){
+                    current_height = 0;
+                }else if (event.getAction()== MotionEvent.ACTION_UP){
+                    current_height = 0;
+                }
+                if(prev_y > event.getY()){
+                    Log.e(TAG, "moved up");
+                    if(current_height < final_height){
+                        current_height += 10;
+                        try {
+                            ViewHelper.setTranslationY(list_appbar.get(current_postion).appBarLayout, ScrollUtils.getFloat(current_height, final_height, 0));
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                    else {
+                        current_height =0;
+
+                    }
+                }else{
+                    Log.e(TAG, "moved down");
+                    if(current_height-10>inital_height){
+                        current_height -= current_height;
+
+                    }else {
+                        current_height = 0;
+                    }
+
+                }
+
+                prev_y = event.getY();
+
+
+                return false;
+            }
+        });
+//        collapsing_toolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
+//        appBar = (AppBarLayout) view.findViewById(R.id.appBar);
+//        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.main_content);
+//        nested_scroll.setEnableScrolling(false);
+
+//        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
+//        behavior = (AppBarLayout.Behavior) params.getBehavior();
 
 //        nested_scroll.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View v, MotionEvent event) {
 //
-//                float val = event.getY();
-//                Log.e(TAG, ""+val);
-//
-//                if(event.getAction()== MotionEvent.ACTION_DOWN){
-//                    current_height = 0;
-//                }else if (event.getAction()== MotionEvent.ACTION_UP){
-//                    current_height = 0;
-//                }
-//                if(prev_y > event.getY()){
-//                    Log.e(TAG, "moved up");
-//                    if(current_height < final_height){
-//                        current_height += 10;
-//                        try {
-//                            ViewHelper.setTranslationY(list_appbar.get(current_postion).appBarLayout, ScrollUtils.getFloat(current_height, final_height, 0));
-//                        }catch (Exception e){
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                    else {
-//                        current_height =0;
-//
-//                    }
-//                }else{
-//                    Log.e(TAG, "moved down");
-//                    if(current_height-10>inital_height){
-//                        current_height -= current_height;
-//
-//                    }else {
-//                        current_height = 0;
-//                    }
-//
-//                }
-//
-//                prev_y = event.getY();
-//
+//                Log.e("event received is " , ""+event);
 //
 //                return false;
 //            }
 //        });
-//        collapsing_toolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
-//        appBar = (AppBarLayout) view.findViewById(R.id.appBar);
-//        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.main_content);
-////        nested_scroll.setEnableScrolling(false);
-//
-//        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
-//        behavior = (AppBarLayout.Behavior) params.getBehavior();
-//
-////        nested_scroll.setOnTouchListener(new View.OnTouchListener() {
-////            @Override
-////            public boolean onTouch(View v, MotionEvent event) {
-////
-////                Log.e("event received is " , ""+event);
-////
-////                return false;
-////            }
-////        });
-//
-//
+
+
 //        ImageView img_view = (ImageView)view.findViewById(R.id.view_below);
 //        img_view.setOnClickListener(new View.OnClickListener() {
 //
@@ -371,13 +511,14 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
         LayoutInflater inflater =
                 (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        for (int i= 0; i < 20 ; i++){
+        for(int i= 0; i < 20 ; i++){
 
             View menuLayout = inflater.inflate(R.layout.design_home, null, true);
 
             if(menuLayout != null){
                 Log.e(TAG, "view is not null");
                 layout_parrent.addView(menuLayout);
+//                layout_parent_coordinator.addView(menuLayout);
                 Holder holder = new Holder();
                 holder.appBarLayout = (AppBarLayout) menuLayout.findViewById(R.id.appBar);
                 holder.collapsing_toolbar = (CollapsingToolbarLayout) menuLayout.findViewById(R.id.collapsing_toolbar);
@@ -426,7 +567,7 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
                 Point size = new Point();
                 display.getSize(size);
                 int height = size.y;
-                int check_height = (int)(height/2);
+                int check_height = (int)(height/4);
                 ImageView layout_check = list_appbar.get(collapse_item).img_view;
                 int[] coords = {0,0};
                 layout_check.getLocationOnScreen(coords);
@@ -439,9 +580,10 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
                     try {
                         if(absoluteTop > check_height){
                             {
+
                                 Log.e(TAG, "moved down");
                                 AppBarLayout appBar = list_appbar.get(collapse_item).appBarLayout;
-                                CoordinatorLayout coordinator_layout = list_appbar.get(collapse_item).coordinatorLayout;
+                                CoordinatorLayout coordinator_layout = list_appbar.get(collapse_item-1).coordinatorLayout;
 
 //                                    appBar.setExpanded(false);
 
@@ -455,7 +597,7 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
 //                                        previtem = scrollY;
                                     appBar.setExpanded(false);
 
-                                    list_appbar.get(collapse_item).collapsing_toolbar.getLayoutParams().height = 0;
+                                    list_appbar.get(collapse_item -1).collapsing_toolbar.getLayoutParams().height = 0;
 //                                    list_appbar.get(collapse_item).laffsetCyout_collapseitem.setVisibility(View.VISIBLE);
 //                                        list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.VISIBLE);
 //                                        list_appbar.get(collapse_item).collapsing_toolbar.setVisibility(View.GONE);
@@ -484,7 +626,8 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
                     prev_y =scrollY;
                     Log.e(TAG, "scrol up");
 
-                    if(absoluteTop < check_height || (list_appbar.size() - current_postion) <= 4){
+                    if(absoluteTop < check_height){
+
                         CoordinatorLayout.LayoutParams params_ = (CoordinatorLayout.LayoutParams) list_appbar.get(collapse_item).appBarLayout.getLayoutParams();
                         behavior = (AppBarLayout.Behavior) params_.getBehavior();
                         if(behavior!=null) {
@@ -516,9 +659,16 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
 //                                                list_appbar.get(collapse_item).collapsing_toolbar.getLayoutParams().height = 1000;
 //                                                list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
 //                                            }
-//                                        }
+//                      '                  }
 
                                         appBar.setExpanded(true);
+                                        int top_y = list_appbar.get(collapse_item).appBarLayout.getBottom();
+                                        if(prev_collapse_item != collapse_item){
+//                                            nested_scroll.scrollBy(0, top_y);
+                                            focusOnView(nested_scroll, list_appbar.get(collapse_item).collapsing_toolbar);
+                                            prev_collapse_item = collapse_item;
+                                        }
+
 
 
 //                                    list_appbar.get(collapse_item).layout_collapseitem.setVisibility(View.GONE);
@@ -544,6 +694,49 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
 
             }
         });
+
+
+        list_appbar.get(current_postion).appBarLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+
+//                final int X = (int) event.getRawX();
+                final int Y = (int) event.getRawY();
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+//                        RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+//                        _xDelta = X - lParams.leftMargin;
+                        _yDelta = Y;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        Log.e(""+Y, "delta"+_yDelta);
+                        break;
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                        Log.e(""+Y, "delta"+_yDelta);
+                        break;
+                    case MotionEvent.ACTION_POINTER_UP:
+                        Log.e(""+Y, "delta"+_yDelta);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+//                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+//                        layoutParams.leftMargin = X - _xDelta;
+                            prev_y =
+                        Log.e(""+Y, "delta"+_yDelta);
+//                        layoutParams.topMargin = Y - _yDelta;
+//                        layoutParams.rightMargin = -250;
+//                        layoutParams.bottomMargin = -250;
+//                        view.setLayoutParams(layoutParams);
+                        break;
+                }
+//                nested_scroll.invalidate();
+                return true;
+            }
+        });
+
+
+
+
 
 
 
@@ -626,6 +819,39 @@ public class Fragment_home extends Fragment implements ObservableScrollViewCallb
 //            }
 //        });
 
+    }
+
+
+    private final void focusOnView(final NestedScrollView scroll, final View view) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int vLeft = view.getLeft();
+                int vRight = view.getRight();
+                int sheight = scroll.getHeight();
+                int items_height = ((int)(view.getHeight())*collapse_item);
+
+
+                int to_be_scrolled  =  sheight + view.getHeight() ;
+                if(prev_y != to_be_scrolled){
+                    prev_y = to_be_scrolled;
+                    int tab_ht = 0;
+                    if(BaseActivity.tabLayout !=  null){
+                        tab_ht = BaseActivity.tabLayout.getBottom();
+                        int totalht = current_item_height+tab_ht+items_height;
+
+                        if(current_height != totalht){
+                            current_item_height = totalht;
+//                            scroll.setSmoothScrollingEnabled(false);
+//                            scroll.smoothScrollTo(0, current_item_height);
+//                            scroll.setSmoothScrollingEnabled(true);
+                        }
+                    }
+
+                }
+
+            }
+        }, 100);
     }
 
 

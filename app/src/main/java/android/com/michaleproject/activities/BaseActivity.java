@@ -47,6 +47,8 @@ public class BaseActivity extends AppCompatActivity implements
 
     private List<String> list_navoptions = new ArrayList<>();
 
+    public static TabLayout tabLayout = null;
+
 
 
 
@@ -98,7 +100,7 @@ public class BaseActivity extends AppCompatActivity implements
 ////            // Attach the view pager to the tab strip
 //            tabsStrip.setViewPager(pager);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(pager);
 
         // Bind the tabs to the ViewPager
