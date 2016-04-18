@@ -5,7 +5,6 @@ import android.com.michaleproject.adapters.HeaderAdapter;
 import android.com.michaleproject.adapters.ViewPagerAdapter;
 import android.com.michaleproject.fragments.Fragment_categories;
 import android.com.michaleproject.fragments.Fragment_favourities;
-import android.com.michaleproject.fragments.Fragment_home;
 import android.com.michaleproject.fragments.Fragment_nearby;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,7 +29,6 @@ import java.util.List;
 public class BaseActivity extends AppCompatActivity implements
         Fragment_categories.OnFragmentInteractionListener,
         Fragment_favourities.OnFragmentInteractionListener,
-        Fragment_home.OnFragmentInteractionListener,
         Fragment_nearby.OnFragmentInteractionListener,
         View.OnClickListener{
 

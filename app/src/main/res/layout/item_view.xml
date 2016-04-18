@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/frame_layout"
+             xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:customFont="http://schemas.android.com/apk/res-auto"
+             android:layout_width="fill_parent"
+             android:layout_height="@dimen/offer_tile_our_best_minimized_height">
+
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"/>
+
+    <View android:id="@+id/glass_overlay"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:background="@android:color/transparent"/>
+
+    <View android:id="@+id/text_shadow" android:layout_width="fill_parent"
+          android:layout_height="fill_parent" android:background="@android:color/transparent"/>
+
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:layout_gravity="bottom">
+        <ImageView
+            android:id="@+id/ourbest_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="#ffff00"
+            android:visibility="invisible"/>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:layout_gravity="center_vertical" android:layout_marginRight="10.0dip"
+                      android:orientation="vertical">
+            <TextView
+                android:id="@+id/ourbest_title"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginBottom="5.0dip" android:ellipsize="end"
+                android:maxLines="2" android:textColor="@android:color/white"
+
+                />
+            <TextView
+                android:id="@+id/ourbest_text" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:ellipsize="end"
+                android:maxLines="2" android:textColor="@android:color/white"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
